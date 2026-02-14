@@ -1,0 +1,78 @@
+    <div class="row g-3">
+        <div class="col-md-1">
+            <label for="menarquia" class="form-label">Menarquia:</label>
+            <input type="number" class="form-control form-control-sm" id="menarquia"
+                [formField]="historicalClinicoForm.menarquia">
+            @if (historicalClinicoForm.menarquia().invalid() && historicalClinicoForm.menarquia().touched()) {
+            <div class="alert alert-danger">
+                @for (error of historicalClinicoForm.menarquia().errors(); track error.kind) {
+                {{error.message}}
+                }
+            </div>
+            }
+        </div>
+        <div class="col-md-1">
+            <label for="pubarquia" class="form-label">Pubarquia:</label>
+            <input type="number" class="form-control form-control-sm" id="pubarquia"
+                [formField]="historicalClinicoForm.pubarquia">
+            @if (historicalClinicoForm.pubarquia().invalid() && historicalClinicoForm.pubarquia().touched()) {
+            <div class="alert alert-danger">
+                @for (error of historicalClinicoForm.pubarquia().errors(); track error.kind) {
+                {{error.message}}
+                }
+            </div>
+            }
+        </div>
+        <div class="col-md-1">
+            <label for="telarquia" class="form-label">Telarquia:</label>
+            <input type="number" class="form-control form-control-sm" id="telarquia"
+                [formField]="historicalClinicoForm.telarquia">
+            @if (historicalClinicoForm.telarquia().invalid() && historicalClinicoForm.telarquia().touched()) {
+            <div class="alert alert-danger">
+                @for (error of historicalClinicoForm.telarquia().errors(); track error.kind) {
+                {{error.message}}
+                }
+            </div>
+            }
+        </div>
+        <div class="col-md-1">
+            <label for="primerCoito" class="form-label">1er Coito:</label>
+            <input type="number" class="form-control form-control-sm" id="primerCoito"
+                [formField]="historicalClinicoForm.primerCoito">
+            @if (historicalClinicoForm.primerCoito().invalid() && historicalClinicoForm.primerCoito().touched()) {
+            <div class="alert alert-danger">
+                @for (error of historicalClinicoForm.primerCoito().errors(); track error.kind) {
+                {{error.message}}
+                }
+            </div>
+            }
+        </div>
+        <div class="col-md-2">
+            <label for="parejasSexuales" class="form-label">Nro de parejas sexuales:</label>
+            <input type="number" class="form-control form-control-sm" id="parejasSexuales"
+                [formField]="historicalClinicoForm.parejasSexuales">
+        </div>
+
+
+
+        <div class="col-md-3">
+            <label for="fum" class="form-label">Fecha de Ultima Menstruación</label>
+            <input type="date" class="form-control form-control-sm" id="fechaEvaluacion"
+                [formField]="historicalClinicoForm.fum">
+        </div>
+
+        <div class="col-md-3">
+            <label for="anticoncepcion" class="form-label">Anticoncepción</label>
+            <input list="anticonceptivosList" type="text" class="form-control form-control-sm" id="anticoncepcion"
+                placeholder="Metodo Anticonceptivo" [formField]="historicalClinicoForm.anticoncepcion">
+
+            <datalist id="anticonceptivosList">
+                @for (anticonception of anticonceptionList(); track anticonception.text) {
+                <option [value]="anticonception.text"></option>
+                }
+            </datalist>
+        </div>
+
+
+
+    </div>

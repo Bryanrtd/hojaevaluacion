@@ -1,0 +1,328 @@
+<div class="container">
+    <div class="text-center mb-5">
+        <h6>MINISTERIO DE SALUD PUBLICA</h6>
+        <h6 class="fw-bold">HOSPITAL UNIVERSITARIO NUESTRA SEÑORA DE LA ALTAGRACIA</h6>
+        <h6>SANTO DOMINGO, D.N.</h6>
+        <h6 class="fw-bold">HOJA DE EVALUACION DEL DEPARTAMENTO DE ONCOLOGIA GINECOLOGICA</h6>
+    </div>
+
+    <div class="d-flex mb-3">
+        <button type="button" class="btn btn-success mx-2" (click)="generateDocument()"
+            [disabled]="!isFormValid()">Exportar Documento</button>
+        <button type="button" class="btn btn-primary" (click)="cleanDocument()">Nuevo Documento</button>
+
+    </div>
+
+    <div class="h4 pb-2 mb-4 text-center border-bottom border-primary">
+        Historical Clínico
+    </div>
+
+
+    <app-general-info (generalInfo)="patientInformationForm.generalInfo().value.set($event)" />
+
+    <hr>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <label for="motivoConsulta" class="form-label">Motivo de consulta e historia de la enfermedad
+                actual:</label>
+            <textarea class="form-control" id="motivoConsulta" rows="3"
+                [formField]="patientInformationForm.motivoConsulta"></textarea>
+        </div>
+    </div>
+
+
+
+    <div class="accordion mt-3" id="patientInfoAccord">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#antecedentes" aria-expanded="false" aria-controls="antecedentes">
+                    Antecedentes
+                </button>
+            </h2>
+            <div id="antecedentes" class="accordion-collapse collapse" data-bs-parent="#patientInfoAccord">
+                <div class="accordion-body">
+                    <div class="h6 pb-2 mb-4">
+                        Antecedentes Ginecologicos:
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-2">
+                            <label for="g" class="form-label">G:</label>
+                            <input type="number" class="form-control form-control-sm" id="g"
+                                [formField]="patientInformationForm.G">
+                            @if (patientInformationForm.G().invalid() && patientInformationForm.G().touched()) {
+                            <div class="alert alert-danger">
+                                @for (error of patientInformationForm.G().errors(); track error.kind) {
+                                {{error.message}}
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div class="col-md-2">
+                            <label for="p" class="form-label">P:</label>
+                            <input type="number" class="form-control form-control-sm" id="p"
+                                [formField]="patientInformationForm.P">
+                            @if (patientInformationForm.P().invalid() && patientInformationForm.P().touched()) {
+                            <div class="alert alert-danger">
+                                @for (error of patientInformationForm.P().errors(); track error.kind) {
+                                {{error.message}}
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div class="col-md-2">
+                            <label for="a" class="form-label">A:</label>
+                            <input type="number" class="form-control form-control-sm" id="a"
+                                [formField]="patientInformationForm.A">
+                            @if (patientInformationForm.A().invalid() && patientInformationForm.A().touched()) {
+                            <div class="alert alert-danger">
+                                @for (error of patientInformationForm.A().errors(); track error.kind) {
+                                {{error.message}}
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div class="col-md-2">
+                            <label for="c" class="form-label">C:</label>
+                            <input type="number" class="form-control form-control-sm" id="c"
+                                [formField]="patientInformationForm.C">
+                            @if (patientInformationForm.C().invalid() && patientInformationForm.C().touched()) {
+                            <div class="alert alert-danger">
+                                @for (error of patientInformationForm.C().errors(); track error.kind) {
+                                {{error.message}}
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div class="col-md-2">
+                            <label for="e" class="form-label">E:</label>
+                            <input type="number" class="form-control form-control-sm" id="e"
+                                [formField]="patientInformationForm.E">
+                            @if (patientInformationForm.E().invalid() && patientInformationForm.E().touched()) {
+                            <div class="alert alert-danger">
+                                @for (error of patientInformationForm.E().errors(); track error.kind) {
+                                {{error.message}}
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div class="col-md-2">
+                            <label for="m" class="form-label">M:</label>
+                            <input type="number" class="form-control form-control-sm" id="m"
+                                [formField]="patientInformationForm.M">
+                            @if (patientInformationForm.M().invalid() && patientInformationForm.M().touched()) {
+                            <div class="alert alert-danger">
+                                @for (error of patientInformationForm.M().errors(); track error.kind) {
+                                {{error.message}}
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div class="my-2">
+                            <app-historical-clinico (historialClinico)="patientInformationForm.historialClinico().value.set($event)"/>
+                        </div>
+                        <app-antecedentes (antecedentes)="patientInformationForm.actecedentes().value.set($event)"/>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#examenFisicoAccord" aria-expanded="false" aria-controls="examenFisicoAccord">
+                        Examen Fisico
+                    </button>
+                </h2>
+                <div id="examenFisicoAccord" class="accordion-collapse collapse" data-bs-parent="#patientInfoAccord">
+                    <div class="accordion-body">
+                        <div class="row mb-2">
+                            <div class="h6 pb-2 mb-4">
+                                Signos Vitales:
+                            </div>
+                            <div class="col-md-2">
+                                <label for="ta" class="form-label">TA:</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control form-control-sm" id="ta"
+                                        [formField]="patientInformationForm.ta">
+                                    <span class="input-group-text">mmHg</span>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2">
+                                <label for="fc" class="form-label">FC:</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control form-control-sm" id="fc"
+                                        [formField]="patientInformationForm.fc">
+                                    <span class="input-group-text">Lats/min</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="fr" class="form-label">FR:</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control form-control-sm" id="fr"
+                                        [formField]="patientInformationForm.fr">
+                                    <span class="input-group-text">Resp/min</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 mb-3">
+                            <label for="cuello" class="form-label">Cuello:</label>
+                            <textarea class="form-control" id="cuello" rows="3"
+                                [formField]="patientInformationForm.examenFisico.cuello"></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="mamas" class="form-label">Mamas:</label>
+                            <textarea class="form-control" id="mamas" rows="3"
+                                [formField]="patientInformationForm.examenFisico.mamas"></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="abdomen" class="form-label">Abdomen:</label>
+                            <textarea class="form-control" id="abdomen" rows="3"
+                                [formField]="patientInformationForm.examenFisico.abdomen"></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="genitalesExternos" class="form-label">Genitales Externos:</label>
+                            <textarea class="form-control" id="genitalesExternos" rows="3"
+                                [formField]="patientInformationForm.examenFisico.genitalesExternos"></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="regionInguinal" class="form-label">Región Inguinal:</label>
+                            <textarea class="form-control" id="regionInguinal" rows="3"
+                                [formField]="patientInformationForm.examenFisico.regionInguinal"></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="especuloscopia" class="form-label">Especuloscopía:</label>
+                            <textarea class="form-control" id="especuloscopia" rows="3"
+                                [formField]="patientInformationForm.examenFisico.especuloscopia"></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="tactoVaginal" class="form-label">Tacto Vaginal:</label>
+                            <textarea class="form-control" id="tactoVaginal" rows="3"
+                                [formField]="patientInformationForm.examenFisico.tactoVaginal"></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="tactoRectal" class="form-label">Tacto Rectal:</label>
+                            <textarea class="form-control" id="tactoRectal" rows="3"
+                                [formField]="patientInformationForm.examenFisico.tactoRectal"></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="miembrosInferiores" class="form-label">Miembros Inferiores:</label>
+                            <textarea class="form-control" id="miembrosInferiores" rows="3"
+                                [formField]="patientInformationForm.examenFisico.miembrosInferiores"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#ProcedimientooAccord" aria-expanded="false"
+                        aria-controls="ProcedimientooAccord">
+                        Procedimientos
+                    </button>
+                </h2>
+                <div id="ProcedimientooAccord" class="accordion-collapse collapse" data-bs-parent="#patientInfoAccord">
+                    <div class="accordion-body">
+                        @for (proc of patienInformationModel().procedimientos; track $index) {
+                        <div class="row mb-2 ">
+                            <div class="col-md-2">
+                                <label [for]="'fecha' + $index" class="form-label">Fecha:</label>
+                                <input type="date" class="form-control form-control-sm" [id]="'fecha' + $index"
+                                    [formField]="patientInformationForm.procedimientos[$index].fecha">
+                            </div>
+                            <div class="col-md-3">
+                                <label [for]="'tipoProcedimiento' + $index" class="form-label">Tipo de
+                                    Procedimiento</label>
+                                <select class="form-select form-select-sm"
+                                    [formField]="patientInformationForm.procedimientos[$index].tipoProcedimiento"
+                                    [id]="'tipoProcedimiento' + $index">
+                                    <option value="" selected>Seleccione el tipo de procedimiento</option>
+                                    @for (proc of tipoProcedimientosList(); track proc) {
+                                    <option [value]="proc">{{proc}}</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-6 ">
+                                <label [for]="'descripcion' + $index" class="form-label">Descripción:</label>
+                                <textarea class="form-control" [id]="'descripcion' + $index" rows="3"
+                                    [formField]="patientInformationForm.procedimientos[$index].descripcion"></textarea>
+                            </div>
+                            <div class="col-md-1 d-flex align-items-center">
+                                <button class="btn btn-danger" type="button" (click)="removerProcedimientos($index)">X</button>
+                            </div>
+                        </div>
+                        }
+                        <div class="d-flex justify-content-end mt-2">
+                            <button class="btn btn-primary" type="button" (click)="agregarProcedimiento()">+ Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#estudiosComplementariosAccord" aria-expanded="false"
+                        aria-controls="estudiosComplementariosAccord">
+                        Estudios Complementarios
+                    </button>
+                </h2>
+                <div id="estudiosComplementariosAccord" class="accordion-collapse collapse"
+                    data-bs-parent="#patientInfoAccord">
+                    <div class="accordion-body">
+                        @for (proc of patienInformationModel().estudiosComplementarios; track $index) {
+                        <div class="row mb-2">
+                            <div class="col-md-2">
+                                <label [for]="'fecha' + $index" class="form-label">Fecha:</label>
+                                <input type="date" class="form-control form-control-sm" [id]="'fecha' + $index"
+                                    [formField]="patientInformationForm.estudiosComplementarios[$index].fecha">
+                            </div>
+                            <div class="col-md-3">
+                                <label [for]="'tipoEstudio' + $index" class="form-label">Tipo de
+                                    Estudio</label>
+                                <select class="form-select form-select-sm"
+                                    [formField]="patientInformationForm.estudiosComplementarios[$index].tipoEstudio"
+                                    [id]="'tipoEstudio' + $index">
+                                    <option value="" selected>Seleccione el tipo de estudio</option>
+                                    @for (estudio of tipoEstudiosList(); track estudio) {
+                                    <option [value]="estudio">{{estudio}}</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-6 ">
+                                <label [for]="'hallazgos' + $index" class="form-label">Hallazgos:</label>
+                                <textarea class="form-control" [id]="'hallazgos' + $index" rows="3"
+                                    [formField]="patientInformationForm.estudiosComplementarios[$index].hallazgos"></textarea>
+                            </div>
+                            <div class="col-md-1 d-flex align-items-center">
+                                <button class="btn btn-danger" type="button" (click)="removerEstudios($index)">X</button>
+                            </div>
+                        </div>
+                        }
+                        <div class="d-flex justify-content-end mt-2">
+                            <button class="btn btn-primary" type="button" (click)="agregarEstudios()">+ Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12 mb-3">
+            <label for="diagnostico" class="form-label">Diagnóstico:</label>
+            <textarea class="form-control" id="diagnostico" rows="3"
+                [formField]="patientInformationForm.diagnostico"></textarea>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12 mb-3">
+            <label for="plan" class="form-label">Plan:</label>
+            <textarea class="form-control" id="plan" rows="3" [formField]="patientInformationForm.plan"></textarea>
+        </div>
+    </div>

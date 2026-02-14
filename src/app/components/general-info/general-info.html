@@ -1,0 +1,75 @@
+<div class="container">
+    <form>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="paciente" class="form-label">Paciente</label>
+                <input type="text" class="form-control form-control-sm" id="paciente"
+                    [formField]="generalInfoForm.paciente">
+                @if (generalInfoForm.paciente().invalid() && generalInfoForm.paciente().touched()) {
+                <div class="alert alert-danger">
+                    @for (error of generalInfoForm.paciente().errors(); track error.kind) {
+                    {{error.message}}
+                    }
+                </div>
+                }
+            </div>
+            <div class="col-md-2">
+                <label for="edad" class="form-label">Edad</label>
+                <input type="number" class="form-control form-control-sm" id="edad" [formField]="generalInfoForm.edad">
+                @if (generalInfoForm.edad().invalid() && generalInfoForm.edad().touched()) {
+                <div class="alert alert-danger">
+                    @for (error of generalInfoForm.edad().errors(); track error.kind) {
+                    {{error.message}}
+                    }
+                </div>
+                }
+            </div>
+            <div class="col-md-2">
+                <label for="expediente" class="form-label">Expediente</label>
+                <input type="text" class="form-control form-control-sm" id="expediente"
+                    [formField]="generalInfoForm.expediente">
+                @if (generalInfoForm.expediente().invalid() && generalInfoForm.expediente().touched()) {
+                <div class="alert alert-danger">
+                    @for (error of generalInfoForm.expediente().errors(); track error.kind) {
+                    {{error.message}}
+                    }
+                </div>
+                }
+            </div>
+            <div class="col-md-2">
+                <label for="fechaEvaluacion" class="form-label">Fecha de Evaluación</label>
+                <input type="date" class="form-control form-control-sm" id="fechaEvaluacion"
+                    [formField]="generalInfoForm.fechaEvaluacion">
+                @if (generalInfoForm.fechaEvaluacion().invalid() && generalInfoForm.fechaEvaluacion().touched()) {
+                <div class="alert alert-danger">
+                    @for (error of generalInfoForm.fechaEvaluacion().errors(); track error.kind) {
+                    {{error.message}}
+                    }
+                </div>
+                }
+            </div>
+            <div class="col-md-4">
+                <label for="natural" class="form-label">Natural</label>
+                <input type="text" class="form-control form-control-sm" id="natural"
+                    [formField]="generalInfoForm.natural">
+            </div>
+            <div class="col-md-4">
+                <label for="residente" class="form-label">Residente</label>
+                <input type="text" class="form-control form-control-sm" id="residente"
+                    [formField]="generalInfoForm.residente">
+            </div>
+            <div class="col-md-4">
+                <label for="tipificacion" class="form-label">Tipificación</label>
+                <select class="form-select form-select-sm" [formField]="generalInfoForm.tipificacion">
+                    <option value="" selected>Seleccione tipo de sangre</option>
+                    @for (tipificacion of tipicationList(); track tipificacion) {
+                    <option [value]="tipificacion">{{tipificacion}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <br>
+    </form>
+</div>

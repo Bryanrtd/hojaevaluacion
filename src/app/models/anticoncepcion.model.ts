@@ -1,0 +1,1 @@
+export type Anticoncepcion = 'DIU' | 'CO' | 'ESPUMA' | 'CONDON' | 'DIAFRAGMA' | 'RITMO' | 'COITOINTERRUPTUS' | 'ESTERILIZACION' | 'NINGUNA' | 'OTRO' | '';
