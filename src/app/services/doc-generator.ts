@@ -24,8 +24,8 @@ export class DocGenerator {
         default: {
           document: {
             run: {
-              size: '12pt',
-              font: "Calibri",
+              size: '11pt',
+              font: "Arial",
             },
           },
         },
@@ -34,13 +34,36 @@ export class DocGenerator {
         children: [
           ...this.agregarEncabezados(),
           ...this.generateGeneralInfoSection(patientInformation.generalInfo),
-          ...this.agregarMotivoConsulta(patientInformation.motivoConsulta),
-          ...this.agregarAntecedentesGinecologicos(patientInformation),
-          ...this.agregarExamenFisico(patientInformation),
-          ...this.agregarProcedimientos(patientInformation),
-          ...this.agregarEstudiosComplementarios(patientInformation),
           new Paragraph({
-            children: [...this.addNewTextRun("Diagnóstico", patientInformation.diagnostico, false, 2)]
+            children: [new TextRun({ text: "Historica Clinica", allCaps: true, bold: true, break: 1 })]
+
+          }),
+          ...this.agregarMotivoConsulta(patientInformation.motivoConsulta),
+          new Paragraph({
+            children: [new TextRun({ text: "Antecedentes", allCaps: true, bold: true, break: 1 })]
+          }),
+          new Paragraph({
+            children: [new TextRun({ text: "Antecedentes Ginecologicos", allCaps: true, bold: true, break: 1 })]
+          }),
+          ...this.agregarAntecedentesGinecologicos(patientInformation),
+          new Paragraph({
+            children: [new TextRun({ text: "Examen Fisico", allCaps: true, bold: true, break: 1 })]
+          }),
+          ...this.agregarExamenFisico(patientInformation),
+          new Paragraph({
+            children: [new TextRun({ text: "Procedimientos", allCaps: true, bold: true, break: 1 })]
+          }),
+          ...this.agregarProcedimientos(patientInformation),
+          new Paragraph({
+            children: [new TextRun({ text: "Estudios Complementarios", allCaps: true, bold: true, break: 1 })]
+          }),
+          ...this.agregarEstudiosComplementarios(patientInformation),
+
+          new Paragraph({
+            children: [
+              new TextRun({ text: "Motivo de consulta e historia de la enfermedad actual: ", bold: true, break: 2 }),
+              new TextRun({ text: `${patientInformation.diagnostico}`, break: 1 })
+            ]
           }),
           new Paragraph({
             children: [...this.addNewTextRun("Plan", patientInformation.plan, false, 2)]
@@ -64,17 +87,17 @@ export class DocGenerator {
       new Paragraph({
         alignment: AlignmentType.JUSTIFIED,
         children: [
-          ...this.addNewTextRun("Paciente", generalInformation.paciente, false, 1),
-          ...this.addNewTextRun("Edad", generalInformation.edad),
-          ...this.addNewTextRun("Expediente", generalInformation.expediente),
+          ...this.addNewTextRun("  Paciente", generalInformation.paciente, false, 1),
+          ...this.addNewTextRun("  Edad", generalInformation.edad),
+          ...this.addNewTextRun("  Expediente", generalInformation.expediente),
         ]
       }),
       new Paragraph({
         alignment: AlignmentType.JUSTIFIED,
         children: [
-          ...this.addNewTextRun("Natural", generalInformation.natural, false),
-          ...this.addNewTextRun("Residente", generalInformation.residente),
-          ...this.addNewTextRun("Tipificación", generalInformation.tipificacion),
+          ...this.addNewTextRun("  Natural", generalInformation.natural, false),
+          ...this.addNewTextRun("  Residente", generalInformation.residente),
+          ...this.addNewTextRun("  Tipificación", generalInformation.tipificacion),
         ]
       }),
     ]
@@ -104,7 +127,8 @@ export class DocGenerator {
     return motivoConsulta ? [
       new Paragraph({
         children: [
-          ...this.addNewTextRun("Motivo de consulta e historia de la enfermedad actual", motivoConsulta, false, 2),
+          new TextRun({ text: "Motivo de consulta e historia de la enfermedad actual: ", bold: true, break: 2 }),
+          new TextRun({ text: `${motivoConsulta}`, break: 1 })
         ]
       })
     ] : []
@@ -115,7 +139,7 @@ export class DocGenerator {
       new Paragraph({
         children: [
           ...this.addNewTextRun("G", patientInformation.G, false, 1),
-          ...this.addNewTextRun("P", patientInformation.P),
+          ...this.addNewTextRun("P", patientInformation.P,),
           ...this.addNewTextRun("A", patientInformation.A),
           ...this.addNewTextRun("C", patientInformation.C),
           ...this.addNewTextRun("E", patientInformation.E),
@@ -125,12 +149,12 @@ export class DocGenerator {
       new Paragraph({
         children: [
           ...this.addNewTextRun("Menarquia", patientInformation.historialClinico.menarquia, false, 1),
-          ...this.addNewTextRun("Pubarquia", patientInformation.historialClinico.pubarquia),
-          ...this.addNewTextRun("Telarquia", patientInformation.historialClinico.telarquia),
-          ...this.addNewTextRun("1er Coito", patientInformation.historialClinico.primerCoito),
-          ...this.addNewTextRun("Número de Parejas sexuales", patientInformation.historialClinico.parejasSexuales),
-          ...this.addNewTextRun("Fecha de Ultima Menstruación", this.formatDate(patientInformation.historialClinico.fum)),
-          ...this.addNewTextRun("Metodo Anticonceptivo", patientInformation.historialClinico.anticoncepcion),
+          ...this.addNewTextRun("Pubarquia", patientInformation.historialClinico.pubarquia, false, 1),
+          ...this.addNewTextRun("Telarquia", patientInformation.historialClinico.telarquia, false, 1),
+          ...this.addNewTextRun("1er Coito", patientInformation.historialClinico.primerCoito, false, 1),
+          ...this.addNewTextRun("Número de Parejas sexuales", patientInformation.historialClinico.parejasSexuales, false, 1),
+          ...this.addNewTextRun("Fecha de Ultima Menstruación", this.formatDate(patientInformation.historialClinico.fum), false, 1),
+          ...this.addNewTextRun("Metodo Anticonceptivo", patientInformation.historialClinico.anticoncepcion, false, 1),
         ]
       }),
       new Paragraph({
@@ -170,9 +194,9 @@ export class DocGenerator {
     return [
       new Paragraph({
         children: [
-          ...this.addNewTextRun("TA", patientInformation.ta, false, 2),
-          ...this.addNewTextRun("FC", patientInformation.fc),
-          ...this.addNewTextRun("FR", patientInformation.fr),
+          ...this.addNewTextRun("   TA", patientInformation.ta, false, 2),
+          ...this.addNewTextRun("   FC", patientInformation.fc),
+          ...this.addNewTextRun("   FR", patientInformation.fr),
         ]
       }),
       new Paragraph({

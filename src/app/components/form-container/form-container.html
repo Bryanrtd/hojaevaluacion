@@ -8,7 +8,7 @@
 
     <div class="d-flex mb-3">
         <button type="button" class="btn btn-success mx-2" (click)="generateDocument()"
-            [disabled]="!isFormValid()">Exportar Documento</button>
+            [disabled]="!isFormValid()">Guardar Documento</button>
         <button type="button" class="btn btn-primary" (click)="cleanDocument()">Nuevo Documento</button>
 
     </div>
@@ -325,4 +325,11 @@
             <label for="plan" class="form-label">Plan:</label>
             <textarea class="form-control" id="plan" rows="3" [formField]="patientInformationForm.plan"></textarea>
         </div>
+    </div>
+
+    <div class="d-flex mt-3">
+        <button type="button" class="btn btn-success mx-2" (click)="generateDocument()"
+            [disabled]="!isFormValid()">Guardar Documento</button>
+        <button type="button" class="btn btn-primary" (click)="cleanDocument()">Nuevo Documento</button>
+
     </div>
