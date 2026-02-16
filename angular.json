@@ -35,7 +35,11 @@
             ],
             "allowedCommonJsDependencies": [
               "file-saver"
-            ]
+            ],
+            "outputPath": {
+              "base": "docs",
+              "browser": ""
+            }
           },
           "configurations": {
             "production": {
