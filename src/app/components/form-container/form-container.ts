@@ -1,10 +1,10 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { form, FormField } from '@angular/forms/signals';
+import { patientInfoInitialData, PatientInformation } from '../../models/PatientInformation.model';
+import { DocGenerator } from '../../services/doc-generator';
+import { AntecedentesComponent } from '../antecedentes/antecedentes';
 import { GeneralInfoComponent } from '../general-info/general-info';
 import { HistoricalClinicoComponent } from '../historical-clinico/historical-clinico';
-import { AntecedentesComponent } from '../antecedentes/antecedentes';
-import { patientInfoInitialData, PatientInformation } from '../../models/PatientInformation.model';
-import { form, FormField } from '@angular/forms/signals';
-import { DocGenerator } from '../../services/doc-generator';
 
 @Component({
   selector: 'app-form-container',
@@ -22,6 +22,7 @@ export class FormContainer {
     return !(!this.patientInformationForm.generalInfo().value().paciente || !this.patientInformationForm.generalInfo().value().expediente
       || !this.patientInformationForm.generalInfo().value().fechaEvaluacion)
   });
+  resetForms = signal(false);
 
   tipoProcedimientosList = signal(["Biopsia por Tru-Cut", "Colposcopia", "Colposcopia + Biopsia de Cérvix", "Colposcopia + Biopsia de Cérvix + Biopsia de endometrio",
     "Biopsia directa de cérvix", "Biopsia de endometrio", "Aplicación de ATA", "Aplicación de SFU", "Aplicación de imiquimod", "Citología", "Cono-ASA"
@@ -34,7 +35,11 @@ export class FormContainer {
 
 
   cleanDocument() {
-    this.patientInformationForm().reset();
+    this.resetForms.set(true);
+    this.patientInformationForm().value.set(patientInfoInitialData);
+    setTimeout(() => {
+      this.resetForms.set(false);
+    }, 500);
   }
 
   generateDocument() {

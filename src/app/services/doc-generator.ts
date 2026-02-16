@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Alignment, AlignmentType, Document, Packer, Paragraph, Tab, TabStopPosition, TabStopType, TextRun } from "docx";
+import { AlignmentType, Document, Packer, Paragraph, Tab, TextRun } from "docx";
 import { saveAs } from 'file-saver';
 import { GeneralInfo } from '../models/GeneralInfo.model';
 import { PatientInformation } from '../models/PatientInformation.model';
@@ -43,30 +43,33 @@ export class DocGenerator {
             children: [new TextRun({ text: "Antecedentes", allCaps: true, bold: true, break: 1 })]
           }),
           new Paragraph({
-            children: [new TextRun({ text: "Antecedentes Ginecologicos", allCaps: true, bold: true, break: 1 })]
+            children: [new TextRun({ text: "Antecedentes Ginecologicos", bold: true, break: 1 })]
           }),
           ...this.agregarAntecedentesGinecologicos(patientInformation),
           new Paragraph({
-            children: [new TextRun({ text: "Examen Fisico", allCaps: true, bold: true, break: 1 })]
+            children: [new TextRun({ text: "Examen Fisico", allCaps: true, bold: true, break: 2 })]
           }),
           ...this.agregarExamenFisico(patientInformation),
           new Paragraph({
-            children: [new TextRun({ text: "Procedimientos", allCaps: true, bold: true, break: 1 })]
+            children: [new TextRun({ text: "Procedimientos", allCaps: true, bold: true, break: 2 })]
           }),
           ...this.agregarProcedimientos(patientInformation),
           new Paragraph({
-            children: [new TextRun({ text: "Estudios Complementarios", allCaps: true, bold: true, break: 1 })]
+            children: [new TextRun({ text: "Estudios Complementarios", allCaps: true, bold: true, break: 2 })]
           }),
           ...this.agregarEstudiosComplementarios(patientInformation),
 
           new Paragraph({
             children: [
-              new TextRun({ text: "Motivo de consulta e historia de la enfermedad actual: ", bold: true, break: 2 }),
+              new TextRun({ text: "Diagnóstico: ", allCaps: true, bold: true, break: 2 }),
               new TextRun({ text: `${patientInformation.diagnostico}`, break: 1 })
             ]
           }),
           new Paragraph({
-            children: [...this.addNewTextRun("Plan", patientInformation.plan, false, 2)]
+            children: [
+              new TextRun({ text: "Plan: ", allCaps: true, bold: true, break: 2 }),
+              new TextRun({ text: `${patientInformation.plan}`, break: 1 })
+            ]
           })
         ]
       }
@@ -87,7 +90,7 @@ export class DocGenerator {
       new Paragraph({
         alignment: AlignmentType.JUSTIFIED,
         children: [
-          ...this.addNewTextRun("  Paciente", generalInformation.paciente, false, 1),
+          ...this.addNewTextRun("Paciente", generalInformation.paciente, false, 1),
           ...this.addNewTextRun("  Edad", generalInformation.edad),
           ...this.addNewTextRun("  Expediente", generalInformation.expediente),
         ]
@@ -95,7 +98,7 @@ export class DocGenerator {
       new Paragraph({
         alignment: AlignmentType.JUSTIFIED,
         children: [
-          ...this.addNewTextRun("  Natural", generalInformation.natural, false),
+          ...this.addNewTextRun("Natural", generalInformation.natural, false),
           ...this.addNewTextRun("  Residente", generalInformation.residente),
           ...this.addNewTextRun("  Tipificación", generalInformation.tipificacion),
         ]
@@ -127,7 +130,7 @@ export class DocGenerator {
     return motivoConsulta ? [
       new Paragraph({
         children: [
-          new TextRun({ text: "Motivo de consulta e historia de la enfermedad actual: ", bold: true, break: 2 }),
+          new TextRun({ text: "Motivo de consulta e historia de la enfermedad actual: ", allCaps: true, bold: true, break: 1 }),
           new TextRun({ text: `${motivoConsulta}`, break: 1 })
         ]
       })
@@ -148,13 +151,13 @@ export class DocGenerator {
       }),
       new Paragraph({
         children: [
-          ...this.addNewTextRun("Menarquia", patientInformation.historialClinico.menarquia, false, 1),
+          ...this.addNewTextRun("Menarquia", patientInformation.historialClinico.menarquia, false),
           ...this.addNewTextRun("Pubarquia", patientInformation.historialClinico.pubarquia, false, 1),
           ...this.addNewTextRun("Telarquia", patientInformation.historialClinico.telarquia, false, 1),
           ...this.addNewTextRun("1er Coito", patientInformation.historialClinico.primerCoito, false, 1),
           ...this.addNewTextRun("Número de Parejas sexuales", patientInformation.historialClinico.parejasSexuales, false, 1),
           ...this.addNewTextRun("Fecha de Ultima Menstruación", this.formatDate(patientInformation.historialClinico.fum), false, 1),
-          ...this.addNewTextRun("Metodo Anticonceptivo", patientInformation.historialClinico.anticoncepcion, false, 1),
+          ...this.addNewTextRun("Método Anticonceptivo", patientInformation.historialClinico.anticoncepcion, false, 1),
         ]
       }),
       new Paragraph({
@@ -194,7 +197,7 @@ export class DocGenerator {
     return [
       new Paragraph({
         children: [
-          ...this.addNewTextRun("   TA", patientInformation.ta, false, 2),
+          ...this.addNewTextRun("TA", patientInformation.ta, false, 1),
           ...this.addNewTextRun("   FC", patientInformation.fc),
           ...this.addNewTextRun("   FR", patientInformation.fr),
         ]
@@ -250,7 +253,7 @@ export class DocGenerator {
         return new Paragraph({
           children: [
             ...this.addNewTextRun("Fecha", this.formatDate(proc.fecha), false, 1),
-            ...this.addNewTextRun("Tipo de Procedimiento", proc.tipoProcedimiento),
+            ...this.addNewTextRun("Tipo de Procedimiento", proc.tipoProcedimiento, false, 1),
             ...this.addNewTextRun("Descripción", proc.descripcion, false, 1),
           ]
         })
@@ -265,7 +268,7 @@ export class DocGenerator {
         return new Paragraph({
           children: [
             ...this.addNewTextRun("Fecha", this.formatDate(proc.fecha), false, 1),
-            ...this.addNewTextRun("Tipo de Estudio", proc.tipoEstudio),
+            ...this.addNewTextRun("Tipo de Estudio", proc.tipoEstudio, false, 1),
             ...this.addNewTextRun("Hallazgos", proc.hallazgos, false, 1),
           ]
         })

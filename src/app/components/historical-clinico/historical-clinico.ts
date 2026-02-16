@@ -1,4 +1,4 @@
-import { Component, effect, output, signal } from '@angular/core';
+import { Component, effect, input, output, signal } from '@angular/core';
 import { HistorialClinico, historicalClinicoSchema, historicalClinicoInitialData } from '../../models/HistorialClinico.model';
 import { form, FormField } from '@angular/forms/signals';
 
@@ -13,8 +13,13 @@ export class HistoricalClinicoComponent {
   private readonly historialClinicoModel = signal<HistorialClinico>(historicalClinicoInitialData);
   historicalClinicoForm = form(this.historialClinicoModel, historicalClinicoSchema)
   historialClinico = output<HistorialClinico>();
+  resetForm = input(false);
 
   eff = effect(() => {
+    if (this.resetForm()) {
+      this.historicalClinicoForm().value.set(historicalClinicoInitialData);
+    }
+    
     this.historialClinico.emit(this.historicalClinicoForm().value())
   })
 

@@ -18,7 +18,7 @@
     </div>
 
 
-    <app-general-info (generalInfo)="patientInformationForm.generalInfo().value.set($event)" />
+    <app-general-info (generalInfo)="patientInformationForm.generalInfo().value.set($event)" [cleanForm]="resetForms()" />
 
     <hr>
     <div class="row">
@@ -120,9 +120,9 @@
                             }
                         </div>
                         <div class="my-2">
-                            <app-historical-clinico (historialClinico)="patientInformationForm.historialClinico().value.set($event)"/>
+                            <app-historical-clinico (historialClinico)="patientInformationForm.historialClinico().value.set($event)" [resetForm]="resetForms()"/>
                         </div>
-                        <app-antecedentes (antecedentes)="patientInformationForm.actecedentes().value.set($event)"/>
+                        <app-antecedentes (antecedentes)="patientInformationForm.actecedentes().value.set($event)" [resetForm]="resetForms()"/>
                     </div>
                 </div>
             </div>
