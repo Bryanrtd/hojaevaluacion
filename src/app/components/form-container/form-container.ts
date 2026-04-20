@@ -43,7 +43,6 @@ export class FormContainer {
   }
 
   generateDocument() {
-    console.log(this.patientInformationForm().value())
     this.docGeneratorSrv.generateDocument(this.patientInformationForm().value());
   }
 
